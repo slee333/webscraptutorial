@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 # 이 URL은 따로 빼줍니다. 나중에 이 URL 뒤에 뭔가 붙이면서 request를 할거니까요.
 url = "https://www.nature.com/search?journal=npjdigitalmed"
 
-
 def extract_ndm():
     # # Get method를 이용해서 해당 URL의 모든 HTML을 받아온다.
     result = requests.get(url)
@@ -21,3 +20,13 @@ def extract_ndm():
 
     # 마지막 페이지를 찾아오자. 정수를 String으로 가져올텐데, 이거를 정수로 바꾸어줍시다. int() 함수를 이용해
     return int(pages[-1]['data-page'])
+
+
+def extract_ndm_articles(last_page):
+    for page in range(last_page):
+        # 이러면 각 페이지들의 URL을 가져올 수 있곘죠? 이제 페이지들을 하나하나 get해봅시다.
+        # 추후 이 페이지들에서 아티클들의 타이틀들만 가져와야 합니다.
+        # 그건 다음 예제에서 한번 해보도록 해요.
+
+        result = requests.get(f"{url}&page={(page+1)}")
+        print(result)
